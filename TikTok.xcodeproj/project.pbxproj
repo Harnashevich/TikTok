@@ -28,6 +28,8 @@
 		9F6BE5212B7B623800D4DA6A /* AuthenticationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F6BE5202B7B623800D4DA6A /* AuthenticationManager.swift */; };
 		9F6BE5232B7B625200D4DA6A /* HapticsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F6BE5222B7B625200D4DA6A /* HapticsManager.swift */; };
 		9F6BE5252B7B676F00D4DA6A /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 9F6BE5242B7B676F00D4DA6A /* GoogleService-Info.plist */; };
+		9FD3713A2B7E0B25002ED893 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FD371392B7E0B25002ED893 /* Extensions.swift */; };
+		9FD3713C2B7E19DA002ED893 /* PostModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FD3713B2B7E19DA002ED893 /* PostModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -55,6 +57,8 @@
 		9F6BE5202B7B623800D4DA6A /* AuthenticationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationManager.swift; sourceTree = "<group>"; };
 		9F6BE5222B7B625200D4DA6A /* HapticsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HapticsManager.swift; sourceTree = "<group>"; };
 		9F6BE5242B7B676F00D4DA6A /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		9FD371392B7E0B25002ED893 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
+		9FD3713B2B7E19DA002ED893 /* PostModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostModel.swift; sourceTree = "<group>"; };
 		D45AD452BC456CF3B869FEFA /* Pods-TikTok.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TikTok.release.xcconfig"; path = "Target Support Files/Pods-TikTok/Pods-TikTok.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -126,6 +130,7 @@
 				9F6BE5242B7B676F00D4DA6A /* GoogleService-Info.plist */,
 				9F13DC012B7A6599009202C7 /* AppDelegate.swift */,
 				9F13DC032B7A6599009202C7 /* SceneDelegate.swift */,
+				9FD371392B7E0B25002ED893 /* Extensions.swift */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -151,6 +156,7 @@
 		9F6BE4FE2B7B597200D4DA6A /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				9FD3713B2B7E19DA002ED893 /* PostModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -347,6 +353,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				9F6BE5232B7B625200D4DA6A /* HapticsManager.swift in Sources */,
+				9FD3713A2B7E0B25002ED893 /* Extensions.swift in Sources */,
 				9F6BE51F2B7B621700D4DA6A /* DatabaseManager.swift in Sources */,
 				9F6BE5042B7B5CAB00D4DA6A /* ExploreViewController.swift in Sources */,
 				9F6BE50D2B7B5DEA00D4DA6A /* UserListViewController.swift in Sources */,
@@ -359,6 +366,7 @@
 				9F6BE5212B7B623800D4DA6A /* AuthenticationManager.swift in Sources */,
 				9F6BE5092B7B5CD200D4DA6A /* NotificationsViewController.swift in Sources */,
 				9F6BE50F2B7B5E0200D4DA6A /* SignInViewController.swift in Sources */,
+				9FD3713C2B7E19DA002ED893 /* PostModel.swift in Sources */,
 				9F6BE50B2B7B5DD100D4DA6A /* ProfileViewController.swift in Sources */,
 				9F6BE51D2B7B616C00D4DA6A /* StorageManager.swift in Sources */,
 				9F13DC022B7A6599009202C7 /* AppDelegate.swift in Sources */,
