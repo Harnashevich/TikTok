@@ -82,7 +82,7 @@ class HomeViewController: UIViewController {
         }
         
         let vc = PostViewController(model: model)
-//        vc.delegate = self
+        vc.delegate = self
         
         followingnPageViewController.setViewControllers(
             [vc],
@@ -107,7 +107,7 @@ class HomeViewController: UIViewController {
             return
         }
         let vc = PostViewController(model: model)
-//        vc.delegate = self
+        vc.delegate = self
         forYouPageViewController.setViewControllers(
             [vc],
             direction: .forward,
@@ -148,7 +148,7 @@ extension HomeViewController: UIPageViewControllerDataSource {
         let priorIndex = index - 1
         let model = currentPosts[priorIndex]
         let vc = PostViewController(model: model)
-//        vc.delegate = self
+        vc.delegate = self
         return vc
     }
     
@@ -170,7 +170,7 @@ extension HomeViewController: UIPageViewControllerDataSource {
         let nextIndex = index + 1
         let model = currentPosts[nextIndex]
         let vc = PostViewController(model: model)
-//        vc.delegate = self
+        vc.delegate = self
         return vc
     }
     
@@ -192,6 +192,70 @@ extension HomeViewController: UIScrollViewDelegate {
             control.selectedSegmentIndex = 0
         } else if scrollView.contentOffset.x > (view.width/2) {
             control.selectedSegmentIndex = 1
+        }
+    }
+}
+
+extension HomeViewController: PostViewControllerDelegate {
+    
+    func postViewController(_ vc: PostViewController, didTapCommentButtoonFor post: PostModel) {
+        horizontalScrollView.isScrollEnabled = false
+        if horizontalScrollView.contentOffset.x == 0 {
+            // follwoing
+            followingnPageViewController.dataSource = nil
+        } else {
+            forYouPageViewController.dataSource = nil
+        }
+
+        HapticsManager.shared.vibrateForSelection()
+
+        let vc = CommentsViewController(post: post)
+        vc.delegate = self
+        addChild(vc)
+        vc.didMove(toParent: self)
+        view.addSubview(vc.view)
+        let frame: CGRect = CGRect(
+            x: 0,
+            y: view.height,
+            width: view.width,
+            height: view.height * 0.76
+        )
+        vc.view.frame = frame
+        UIView.animate(withDuration: 0.2) {
+            vc.view.frame = CGRect(
+                x: 0,
+                y: self.view.height - frame.height,
+                width: frame.width,
+                height: frame.height
+            )
+        }
+    }
+}
+
+extension HomeViewController: CommentsViewControllerDelegate {
+    
+    func didTapCloseForComments(with viewController: CommentsViewController) {
+        // close comments with animation
+        let frame = viewController.view.frame
+        UIView.animate(withDuration: 0.2) {
+            viewController.view.frame = CGRect(
+                x: 0,
+                y: self.view.height,
+                width: frame.width,
+                height: frame.height
+            )
+        } completion: { [weak self] done in
+            if done {
+                DispatchQueue.main.async {
+                    // remove comment vc as child
+                    viewController.view.removeFromSuperview()
+                    viewController.removeFromParent()
+                    // allow horizontal and vertical scroll
+                    self?.horizontalScrollView.isScrollEnabled = true
+                    self?.forYouPageViewController.dataSource = self
+                    self?.followingnPageViewController.dataSource = self
+                }
+            }
         }
     }
 }
