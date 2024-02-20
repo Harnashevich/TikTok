@@ -230,6 +230,12 @@ extension HomeViewController: PostViewControllerDelegate {
             )
         }
     }
+    
+    func postViewController(_ vc: PostViewController, didTapProfileButtoonFor post: PostModel) {
+        let user = post.user
+        let vc = ProfileViewController(user: user)
+        navigationController?.pushViewController(vc, animated: true)
+    }
 }
 
 extension HomeViewController: CommentsViewControllerDelegate {

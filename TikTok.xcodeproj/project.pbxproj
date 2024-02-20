@@ -34,6 +34,7 @@
 		9FD7B3452B8372680082E37C /* PostComment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FD7B3442B8372680082E37C /* PostComment.swift */; };
 		9FD7B3472B8372A50082E37C /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FD7B3462B8372A50082E37C /* User.swift */; };
 		9FE1CC372B84C11800C87632 /* CommentTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FE1CC362B84C11800C87632 /* CommentTableViewCell.swift */; };
+		9FE1CC392B84CC6200C87632 /* video.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 9FE1CC382B84CC6200C87632 /* video.mp4 */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -67,6 +68,7 @@
 		9FD7B3442B8372680082E37C /* PostComment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostComment.swift; sourceTree = "<group>"; };
 		9FD7B3462B8372A50082E37C /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		9FE1CC362B84C11800C87632 /* CommentTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentTableViewCell.swift; sourceTree = "<group>"; };
+		9FE1CC382B84CC6200C87632 /* video.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = video.mp4; sourceTree = "<group>"; };
 		D45AD452BC456CF3B869FEFA /* Pods-TikTok.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TikTok.release.xcconfig"; path = "Target Support Files/Pods-TikTok/Pods-TikTok.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -135,6 +137,7 @@
 			isa = PBXGroup;
 			children = (
 				9F13DC0A2B7A659B009202C7 /* Assets.xcassets */,
+				9FE1CC382B84CC6200C87632 /* video.mp4 */,
 				9F6BE5242B7B676F00D4DA6A /* GoogleService-Info.plist */,
 				9F13DC012B7A6599009202C7 /* AppDelegate.swift */,
 				9F13DC032B7A6599009202C7 /* SceneDelegate.swift */,
@@ -295,6 +298,7 @@
 				9F13DC0E2B7A659B009202C7 /* LaunchScreen.storyboard in Resources */,
 				9F13DC0B2B7A659B009202C7 /* Assets.xcassets in Resources */,
 				9F6BE5252B7B676F00D4DA6A /* GoogleService-Info.plist in Resources */,
+				9FE1CC392B84CC6200C87632 /* video.mp4 in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
