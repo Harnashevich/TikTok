@@ -33,6 +33,7 @@
 		9FD7B3432B8363710082E37C /* CommentsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FD7B3422B8363710082E37C /* CommentsViewController.swift */; };
 		9FD7B3452B8372680082E37C /* PostComment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FD7B3442B8372680082E37C /* PostComment.swift */; };
 		9FD7B3472B8372A50082E37C /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FD7B3462B8372A50082E37C /* User.swift */; };
+		9FE1CC372B84C11800C87632 /* CommentTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FE1CC362B84C11800C87632 /* CommentTableViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -65,6 +66,7 @@
 		9FD7B3422B8363710082E37C /* CommentsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentsViewController.swift; sourceTree = "<group>"; };
 		9FD7B3442B8372680082E37C /* PostComment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostComment.swift; sourceTree = "<group>"; };
 		9FD7B3462B8372A50082E37C /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		9FE1CC362B84C11800C87632 /* CommentTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentTableViewCell.swift; sourceTree = "<group>"; };
 		D45AD452BC456CF3B869FEFA /* Pods-TikTok.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TikTok.release.xcconfig"; path = "Target Support Files/Pods-TikTok/Pods-TikTok.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -224,6 +226,7 @@
 		9F6BE5172B7B612100D4DA6A /* Other */ = {
 			isa = PBXGroup;
 			children = (
+				9FE1CC362B84C11800C87632 /* CommentTableViewCell.swift */,
 			);
 			path = Other;
 			sourceTree = "<group>";
@@ -364,6 +367,7 @@
 				9F6BE5232B7B625200D4DA6A /* HapticsManager.swift in Sources */,
 				9FD3713A2B7E0B25002ED893 /* Extensions.swift in Sources */,
 				9F6BE51F2B7B621700D4DA6A /* DatabaseManager.swift in Sources */,
+				9FE1CC372B84C11800C87632 /* CommentTableViewCell.swift in Sources */,
 				9F6BE5042B7B5CAB00D4DA6A /* ExploreViewController.swift in Sources */,
 				9F6BE50D2B7B5DEA00D4DA6A /* UserListViewController.swift in Sources */,
 				9F6BE5132B7B5E2000D4DA6A /* SettingsViewController.swift in Sources */,

@@ -47,4 +47,3 @@ extension String {
         return DateFormatter.defaultFormatter.string(from: date)
     }
 }
-
