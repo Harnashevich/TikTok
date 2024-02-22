@@ -64,6 +64,8 @@ class PostViewController: UIViewController {
     
     var player: AVPlayer?
     
+    private var playerDidFinishObserver: NSObjectProtocol?
+    
     // MARK: - Init
 
     init(model: PostModel) {
@@ -131,10 +133,7 @@ class PostViewController: UIViewController {
     }
     
     private func configureVideo() {
-        guard let path = Bundle.main.path(
-            forResource: "video",
-            ofType: "mp4"
-        ) else {
+        guard let path = Bundle.main.path(forResource: "video",ofType: "mp4") else {
             return
         }
         
@@ -145,8 +144,19 @@ class PostViewController: UIViewController {
         playerLayer.frame = view.bounds
         playerLayer.videoGravity = .resizeAspectFill
         view.layer.addSublayer(playerLayer)
-        player?.volume = 1
+        player?.volume = 0
         player?.play()
+        
+        guard let player else { return }
+        
+        playerDidFinishObserver = NotificationCenter.default.addObserver(
+            forName: .AVPlayerItemDidPlayToEndTime,
+            object: player.currentItem,
+            queue: .main
+        ) { _ in
+            player.seek(to: .zero)
+            player.play()
+        }
     }
     
     @objc func didTapProfileButtoon() {
