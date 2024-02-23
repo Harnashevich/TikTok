@@ -7,7 +7,7 @@
 
 enum ExploreCell {
     case banner(viewModel: ExploreBannerViewModel)
-    case post(viewModel: String)
-    case hashtag(viewModel: String)
-    case user(viewModel: String)
+    case post(viewModel: ExplorePostViewModel)
+    case hashtag(viewModel: ExploreHashtagViewModel)
+    case user(viewModel: ExploreUserViewModel)
 }
