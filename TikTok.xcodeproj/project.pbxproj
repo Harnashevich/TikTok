@@ -42,6 +42,10 @@
 		9FDF14A42B879E9A00CA0B5C /* ExploreUserViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FDF14A32B879E9A00CA0B5C /* ExploreUserViewModel.swift */; };
 		9FE1CC372B84C11800C87632 /* CommentTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FE1CC362B84C11800C87632 /* CommentTableViewCell.swift */; };
 		9FE1CC392B84CC6200C87632 /* video.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 9FE1CC382B84CC6200C87632 /* video.mp4 */; };
+		9FED475B2B8C83D50063A9C5 /* ExploreBannerCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FED475A2B8C83D50063A9C5 /* ExploreBannerCollectionViewCell.swift */; };
+		9FED475D2B8C83E40063A9C5 /* ExplorePostCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FED475C2B8C83E40063A9C5 /* ExplorePostCollectionViewCell.swift */; };
+		9FED475F2B8C83F00063A9C5 /* ExploreUserCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FED475E2B8C83F00063A9C5 /* ExploreUserCollectionViewCell.swift */; };
+		9FED47612B8C84030063A9C5 /* ExploreHashtagCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FED47602B8C84030063A9C5 /* ExploreHashtagCollectionViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -83,6 +87,10 @@
 		9FDF14A32B879E9A00CA0B5C /* ExploreUserViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExploreUserViewModel.swift; sourceTree = "<group>"; };
 		9FE1CC362B84C11800C87632 /* CommentTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentTableViewCell.swift; sourceTree = "<group>"; };
 		9FE1CC382B84CC6200C87632 /* video.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = video.mp4; sourceTree = "<group>"; };
+		9FED475A2B8C83D50063A9C5 /* ExploreBannerCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExploreBannerCollectionViewCell.swift; sourceTree = "<group>"; };
+		9FED475C2B8C83E40063A9C5 /* ExplorePostCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExplorePostCollectionViewCell.swift; sourceTree = "<group>"; };
+		9FED475E2B8C83F00063A9C5 /* ExploreUserCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExploreUserCollectionViewCell.swift; sourceTree = "<group>"; };
+		9FED47602B8C84030063A9C5 /* ExploreHashtagCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExploreHashtagCollectionViewCell.swift; sourceTree = "<group>"; };
 		D45AD452BC456CF3B869FEFA /* Pods-TikTok.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TikTok.release.xcconfig"; path = "Target Support Files/Pods-TikTok/Pods-TikTok.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -230,6 +238,7 @@
 		9F6BE5022B7B5C8E00D4DA6A /* Other */ = {
 			isa = PBXGroup;
 			children = (
+				9FED47572B8C83AB0063A9C5 /* Explore */,
 				9F6BE50C2B7B5DEA00D4DA6A /* UserListViewController.swift */,
 				9F6BE50E2B7B5E0200D4DA6A /* SignInViewController.swift */,
 				9F6BE5102B7B5E1200D4DA6A /* SignUpViewController.swift */,
@@ -253,6 +262,17 @@
 				9FE1CC362B84C11800C87632 /* CommentTableViewCell.swift */,
 			);
 			path = Other;
+			sourceTree = "<group>";
+		};
+		9FED47572B8C83AB0063A9C5 /* Explore */ = {
+			isa = PBXGroup;
+			children = (
+				9FED475A2B8C83D50063A9C5 /* ExploreBannerCollectionViewCell.swift */,
+				9FED475C2B8C83E40063A9C5 /* ExplorePostCollectionViewCell.swift */,
+				9FED475E2B8C83F00063A9C5 /* ExploreUserCollectionViewCell.swift */,
+				9FED47602B8C84030063A9C5 /* ExploreHashtagCollectionViewCell.swift */,
+			);
+			path = Explore;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -394,16 +414,19 @@
 				9F6BE51F2B7B621700D4DA6A /* DatabaseManager.swift in Sources */,
 				9FE1CC372B84C11800C87632 /* CommentTableViewCell.swift in Sources */,
 				9F6BE5042B7B5CAB00D4DA6A /* ExploreViewController.swift in Sources */,
+				9FED475F2B8C83F00063A9C5 /* ExploreUserCollectionViewCell.swift in Sources */,
 				9FDF149C2B879C7C00CA0B5C /* ExploreSection.swift in Sources */,
 				9F6BE50D2B7B5DEA00D4DA6A /* UserListViewController.swift in Sources */,
 				9FDF14A22B879E8500CA0B5C /* ExploreHashtagViewModel.swift in Sources */,
 				9F6BE5132B7B5E2000D4DA6A /* SettingsViewController.swift in Sources */,
+				9FED475B2B8C83D50063A9C5 /* ExploreBannerCollectionViewCell.swift in Sources */,
 				9F6BE5192B7B614700D4DA6A /* PostViewController.swift in Sources */,
 				9F6BE5062B7B5CB700D4DA6A /* CameraViewController.swift in Sources */,
 				9FDF14A02B879E7500CA0B5C /* ExplorePostViewModel.swift in Sources */,
 				9FD7B3432B8363710082E37C /* CommentsViewController.swift in Sources */,
 				9FDF149A2B879C5F00CA0B5C /* ExploreCell.swift in Sources */,
 				9FDF149E2B879E1700CA0B5C /* ExploreBannerViewModel.swift in Sources */,
+				9FED47612B8C84030063A9C5 /* ExploreHashtagCollectionViewCell.swift in Sources */,
 				9FDF14A42B879E9A00CA0B5C /* ExploreUserViewModel.swift in Sources */,
 				9F6BE5152B7B5E4A00D4DA6A /* TabBarViewController.swift in Sources */,
 				9FD7B3472B8372A50082E37C /* User.swift in Sources */,
@@ -414,6 +437,7 @@
 				9FD7B3452B8372680082E37C /* PostComment.swift in Sources */,
 				9FDF14982B879C4000CA0B5C /* ExploreSectionType.swift in Sources */,
 				9F6BE50F2B7B5E0200D4DA6A /* SignInViewController.swift in Sources */,
+				9FED475D2B8C83E40063A9C5 /* ExplorePostCollectionViewCell.swift in Sources */,
 				9FD3713C2B7E19DA002ED893 /* PostModel.swift in Sources */,
 				9F6BE50B2B7B5DD100D4DA6A /* ProfileViewController.swift in Sources */,
 				9F6BE51D2B7B616C00D4DA6A /* StorageManager.swift in Sources */,
