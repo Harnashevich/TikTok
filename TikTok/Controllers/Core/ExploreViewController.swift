@@ -24,6 +24,7 @@ class ExploreViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .systemBackground
+        ExploreManager.shared.delegate = self
         configureModels()
         setUpSearchBar()
         setUpCollectionView()
@@ -40,107 +41,63 @@ class ExploreViewController: UIViewController {
     }
     
     private func configureModels() {
-        var cells = [ExploreCell]()
-        for _ in 0...1000 {
-            let cell = ExploreCell.banner(viewModel: ExploreBannerViewModel(
-                image: UIImage(named: "test"),
-                title: "Foo",
-                handler: {
-                    
-                }
-            )
-            )
-            cells.append(cell)
-        }
-        
-        // Banners
+        // banner
         sections.append(
             ExploreSection(
                 type: .banners,
-                cells: cells
+                cells: ExploreManager.shared.getExploreBanners().compactMap{
+                    return ExploreCell.banner(viewModel: $0)
+                }
             )
         )
         
-        // Trending posts
-        
-        var posts = [ExploreCell]()
-        for _ in 0...40 {
-            posts.append(ExploreCell.post(viewModel: ExplorePostViewModel(thumbnailImage: UIImage(named: "test"), caption: "This is a really cool post and a long caption", handler: {})))
-        }
-        
+        // trending posts
         sections.append(
             ExploreSection(
                 type: .trendingPosts,
-                cells: posts
+                cells: ExploreManager.shared.getExploreTrendingPosts().compactMap{
+                    return ExploreCell.post(viewModel: $0)
+                }
             )
         )
         
-        // Users
-        
+        // users
         sections.append(
             ExploreSection(
                 type: .users,
-                cells: [
-                    .user(viewModel: ExploreUserViewModel(profilePicture: UIImage(named: "test"), username: "Kanye", followerCuunt: 0, handler: {})),
-                    .user(viewModel: ExploreUserViewModel(profilePicture: UIImage(named: "test"), username: "Andrei", followerCuunt: 0, handler: {})),
-                    .user(viewModel: ExploreUserViewModel(profilePicture: UIImage(named: "test"), username: "Foo", followerCuunt: 0, handler: {})),
-                    .user(viewModel: ExploreUserViewModel(profilePicture: UIImage(named: "test"), username: "Man", followerCuunt: 0, handler: {}))
-                ]
+                cells: ExploreManager.shared.getExploreCreators().compactMap{
+                    return ExploreCell.user(viewModel: $0)
+                }
             )
         )
         
-        // Trending hashtags
-        
+        // trending hashtags
         sections.append(
             ExploreSection(
                 type: .trendingHashtags,
-                cells: [
-                    .hashtag(viewModel: ExploreHashtagViewModel(text: "#foryou", icon: UIImage(named: "test"), count: 0, handler: {})),
-                    .hashtag(viewModel: ExploreHashtagViewModel(text: "#foryou", icon: UIImage(named: "test"), count: 0, handler: {})),
-                    .hashtag(viewModel: ExploreHashtagViewModel(text: "#foryou", icon: UIImage(named: "test"), count: 0, handler: {})),
-                ]
-            )
-        )
-        
-        // Recommended
-        
-        sections.append(
-            ExploreSection(
-                type: .recommended,
-                cells: [
-                    .post(viewModel: ExplorePostViewModel(thumbnailImage: UIImage(named: "test"), caption: "", handler: {})),
-                    .post(viewModel: ExplorePostViewModel(thumbnailImage: UIImage(named: "test"), caption: "", handler: {})),
-                    .post(viewModel: ExplorePostViewModel(thumbnailImage: UIImage(named: "test"), caption: "", handler: {})),
-                    .post(viewModel: ExplorePostViewModel(thumbnailImage: UIImage(named: "test"), caption: "", handler: {}))
-                ]
+                cells: ExploreManager.shared.getExploreHashtags().compactMap{
+                    ExploreCell.hashtag(viewModel: $0)
+                }
             )
         )
         
         // Popular
-        
         sections.append(
             ExploreSection(
                 type: .popular,
-                cells: [
-                    .post(viewModel: ExplorePostViewModel(thumbnailImage: UIImage(named: "test"), caption: "", handler: {})),
-                    .post(viewModel: ExplorePostViewModel(thumbnailImage: UIImage(named: "test"), caption: "", handler: {})),
-                    .post(viewModel: ExplorePostViewModel(thumbnailImage: UIImage(named: "test"), caption: "", handler: {})),
-                    .post(viewModel: ExplorePostViewModel(thumbnailImage: UIImage(named: "test"), caption: "", handler: {}))
-                ]
+                cells: ExploreManager.shared.getExplorePopularPosts().compactMap{
+                    return ExploreCell.post(viewModel: $0)
+                }
             )
         )
         
-        // New/recent
-        
+        // new/recent
         sections.append(
             ExploreSection(
                 type: .new,
-                cells: [
-                    .post(viewModel: ExplorePostViewModel(thumbnailImage: UIImage(named: "test"), caption: "", handler: {})),
-                    .post(viewModel: ExplorePostViewModel(thumbnailImage: UIImage(named: "test"), caption: "", handler: {})),
-                    .post(viewModel: ExplorePostViewModel(thumbnailImage: UIImage(named: "test"), caption: "", handler: {})),
-                    .post(viewModel: ExplorePostViewModel(thumbnailImage: UIImage(named: "test"), caption: "", handler: {}))
-                ]
+                cells: ExploreManager.shared.getExploreRecentPosts().compactMap{
+                    return ExploreCell.post(viewModel: $0)
+                }
             )
         )
     }
@@ -156,8 +113,9 @@ class ExploreViewController: UIViewController {
         )
         
         collectionView.register(
-            UICollectionViewCell.self,
-            forCellWithReuseIdentifier: "cell"
+            TitleHeaderCollectionReusableView.self,
+            forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
+            withReuseIdentifier: TitleHeaderCollectionReusableView.identifier
         )
         
         collectionView.register(
@@ -263,7 +221,7 @@ extension ExploreViewController: UICollectionViewDelegate {
         collectionView.deselectItem(at: indexPath, animated: true)
         HapticsManager.shared.vibrateForSelection()
         let model = sections[indexPath.section].cells[indexPath.row]
-
+        
         switch model {
         case .banner(let viewModel):
             viewModel.handler()
@@ -275,10 +233,45 @@ extension ExploreViewController: UICollectionViewDelegate {
             viewModel.handler()
         }
     }
+    
+    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+        guard let header = collectionView.dequeueReusableSupplementaryView(
+            ofKind: kind,
+            withReuseIdentifier: TitleHeaderCollectionReusableView.identifier,
+            for: indexPath
+        ) as? TitleHeaderCollectionReusableView, kind == UICollectionView.elementKindSectionHeader else {
+            return UICollectionReusableView()
+        }
+        
+        let section = indexPath.section
+        let title = sections[section].type.title
+        
+        header.configure(with: title)
+        return header
+    }
 }
 
 extension ExploreViewController: UISearchBarDelegate {
     
+    func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
+        navigationItem.rightBarButtonItem = UIBarButtonItem(
+            title: "Cancel",
+            style: .done,
+            target: self,
+            action: #selector(didTapCancel)
+        )
+    }
+
+    @objc func didTapCancel() {
+        navigationItem.rightBarButtonItem = nil
+        searchBar.text = nil
+        searchBar.resignFirstResponder()
+    }
+
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        navigationItem.rightBarButtonItem = nil
+        searchBar.resignFirstResponder()
+    }
 }
 
 // MARK: - Section Layouts
@@ -286,6 +279,17 @@ extension ExploreViewController: UISearchBarDelegate {
 extension ExploreViewController {
     
     func layout(for section: Int) -> NSCollectionLayoutSection {
+        let supplementaryViews = [
+            NSCollectionLayoutBoundarySupplementaryItem(
+                layoutSize: NSCollectionLayoutSize(
+                    widthDimension: .fractionalWidth(1),
+                    heightDimension: .absolute(50)
+                ),
+                elementKind: UICollectionView.elementKindSectionHeader,
+                alignment: .top
+            )
+        ]
+        
         let sectionType = sections[section].type
         
         switch sectionType {
@@ -312,6 +316,7 @@ extension ExploreViewController {
             // Section layout
             let sectionLayout = NSCollectionLayoutSection(group: group)
             sectionLayout.orthogonalScrollingBehavior = .groupPaging
+            sectionLayout.boundarySupplementaryItems = supplementaryViews
             // Return
             return sectionLayout
         case .users:
@@ -337,6 +342,7 @@ extension ExploreViewController {
             // Section layout
             let sectionLayout = NSCollectionLayoutSection(group: group)
             sectionLayout.orthogonalScrollingBehavior = .continuous
+            sectionLayout.boundarySupplementaryItems = supplementaryViews
             // Return
             return sectionLayout
             
@@ -362,6 +368,7 @@ extension ExploreViewController {
             
             // Section layout
             let sectionLayout = NSCollectionLayoutSection(group: verticalGroup)
+            sectionLayout.boundarySupplementaryItems = supplementaryViews
             
             // Return
             return sectionLayout
@@ -398,6 +405,7 @@ extension ExploreViewController {
             // Section layout
             let sectionLayout = NSCollectionLayoutSection(group: group)
             sectionLayout.orthogonalScrollingBehavior = .continuous
+            sectionLayout.boundarySupplementaryItems = supplementaryViews
             // Return
             return sectionLayout
             
@@ -423,8 +431,23 @@ extension ExploreViewController {
             // Section layout
             let sectionLayout = NSCollectionLayoutSection(group: group)
             sectionLayout.orthogonalScrollingBehavior = .continuous
+            sectionLayout.boundarySupplementaryItems = supplementaryViews
             // Return
             return sectionLayout
         }
+    }
+}
+
+extension ExploreViewController: ExploreManagerDelegate {
+    
+    func pushViewController(_ vc: UIViewController) {
+        HapticsManager.shared.vibrateForSelection()
+        navigationController?.pushViewController(vc, animated: true)
+    }
+
+    func didTapHashtag(_ hashtag: String) {
+        HapticsManager.shared.vibrateForSelection()
+        searchBar.text = hashtag
+        searchBar.becomeFirstResponder()
     }
 }
