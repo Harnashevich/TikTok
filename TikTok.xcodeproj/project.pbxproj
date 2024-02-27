@@ -54,6 +54,8 @@
 		9FED476E2B8C9C890063A9C5 /* Hashtag.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FED476D2B8C9C890063A9C5 /* Hashtag.swift */; };
 		9FED47702B8C9C990063A9C5 /* Creator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FED476F2B8C9C990063A9C5 /* Creator.swift */; };
 		9FED47722B8CB3E60063A9C5 /* TitleHeaderCollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FED47712B8CB3E60063A9C5 /* TitleHeaderCollectionReusableView.swift */; };
+		9FED47762B8DF9E20063A9C5 /* AuthField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FED47752B8DF9E20063A9C5 /* AuthField.swift */; };
+		9FED47782B8DFA030063A9C5 /* AuthButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FED47772B8DFA030063A9C5 /* AuthButton.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -107,6 +109,8 @@
 		9FED476D2B8C9C890063A9C5 /* Hashtag.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Hashtag.swift; sourceTree = "<group>"; };
 		9FED476F2B8C9C990063A9C5 /* Creator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Creator.swift; sourceTree = "<group>"; };
 		9FED47712B8CB3E60063A9C5 /* TitleHeaderCollectionReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitleHeaderCollectionReusableView.swift; sourceTree = "<group>"; };
+		9FED47752B8DF9E20063A9C5 /* AuthField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthField.swift; sourceTree = "<group>"; };
+		9FED47772B8DFA030063A9C5 /* AuthButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthButton.swift; sourceTree = "<group>"; };
 		D45AD452BC456CF3B869FEFA /* Pods-TikTok.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TikTok.release.xcconfig"; path = "Target Support Files/Pods-TikTok/Pods-TikTok.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -197,6 +201,7 @@
 		9F6BE4FD2B7B596100D4DA6A /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				9FED47742B8DF9D60063A9C5 /* Auth */,
 				9FED47572B8C83AB0063A9C5 /* Explore */,
 				9F6BE5172B7B612100D4DA6A /* Other */,
 				9F6BE5162B7B60EB00D4DA6A /* Storyboards */,
@@ -255,9 +260,8 @@
 		9F6BE5022B7B5C8E00D4DA6A /* Other */ = {
 			isa = PBXGroup;
 			children = (
+				9FED47732B8DF4940063A9C5 /* Authentication */,
 				9F6BE50C2B7B5DEA00D4DA6A /* UserListViewController.swift */,
-				9F6BE50E2B7B5E0200D4DA6A /* SignInViewController.swift */,
-				9F6BE5102B7B5E1200D4DA6A /* SignUpViewController.swift */,
 				9F6BE5122B7B5E2000D4DA6A /* SettingsViewController.swift */,
 				9F6BE5182B7B614700D4DA6A /* PostViewController.swift */,
 			);
@@ -305,6 +309,24 @@
 				9FED476F2B8C9C990063A9C5 /* Creator.swift */,
 			);
 			path = Explore;
+			sourceTree = "<group>";
+		};
+		9FED47732B8DF4940063A9C5 /* Authentication */ = {
+			isa = PBXGroup;
+			children = (
+				9F6BE50E2B7B5E0200D4DA6A /* SignInViewController.swift */,
+				9F6BE5102B7B5E1200D4DA6A /* SignUpViewController.swift */,
+			);
+			path = Authentication;
+			sourceTree = "<group>";
+		};
+		9FED47742B8DF9D60063A9C5 /* Auth */ = {
+			isa = PBXGroup;
+			children = (
+				9FED47752B8DF9E20063A9C5 /* AuthField.swift */,
+				9FED47772B8DFA030063A9C5 /* AuthButton.swift */,
+			);
+			path = Auth;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -460,6 +482,7 @@
 				9FD7B3432B8363710082E37C /* CommentsViewController.swift in Sources */,
 				9FDF149A2B879C5F00CA0B5C /* ExploreCell.swift in Sources */,
 				9FDF149E2B879E1700CA0B5C /* ExploreBannerViewModel.swift in Sources */,
+				9FED47762B8DF9E20063A9C5 /* AuthField.swift in Sources */,
 				9FED47722B8CB3E60063A9C5 /* TitleHeaderCollectionReusableView.swift in Sources */,
 				9FED47612B8C84030063A9C5 /* ExploreHashtagCollectionViewCell.swift in Sources */,
 				9FDF14A42B879E9A00CA0B5C /* ExploreUserViewModel.swift in Sources */,
@@ -471,6 +494,7 @@
 				9F6BE5092B7B5CD200D4DA6A /* NotificationsViewController.swift in Sources */,
 				9FED47682B8C9B640063A9C5 /* ExploreResponse.swift in Sources */,
 				9FD7B3452B8372680082E37C /* PostComment.swift in Sources */,
+				9FED47782B8DFA030063A9C5 /* AuthButton.swift in Sources */,
 				9FED476E2B8C9C890063A9C5 /* Hashtag.swift in Sources */,
 				9FDF14982B879C4000CA0B5C /* ExploreSectionType.swift in Sources */,
 				9F6BE50F2B7B5E0200D4DA6A /* SignInViewController.swift in Sources */,

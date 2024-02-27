@@ -19,6 +19,42 @@ final class DatabaseManager {
     /// Private constructor
     private init() {}
     
+    /// Insert a new user
+    /// - Parameters:
+    ///   - email: user email
+    ///   - username: user username
+    ///   - completion: Async result callback
+    public func insertUser(with email: String, username: String, completion: @escaping (Bool) -> Void) {
+        database.child("users").observeSingleEvent(of: .value) { [weak self] snapshot in
+            guard var usersDictionary = snapshot.value as? [String: Any] else {
+                self?.database.child("users").setValue(
+                    [
+                        username: [
+                            "email": email
+                        ]
+                    ]
+                ) { error, _ in
+                    guard error == nil else {
+                        completion(false)
+                        return
+                    }
+                    completion(true)
+                }
+                return
+            }
+
+            usersDictionary[username] = ["email": email]
+            // save new users object
+            self?.database.child("users").setValue(usersDictionary, withCompletionBlock: { error, _ in
+                guard error == nil else {
+                    completion(false)
+                    return
+                }
+                completion(true)
+            })
+        }
+    }
+    
     // Public
     
     public func getAllUsers(completion: ([String]) -> Void) {
