@@ -120,6 +120,12 @@ final class DatabaseManager {
         }
     }
     
+    /// Get a current users notifications
+    /// - Parameter completion: Result callback of models
+    public func getNotifications(completion: @escaping ([Notification]) -> Void) {
+        completion(Notification.mockData())
+    }
+    
     // Public
     
     public func getAllUsers(completion: ([String]) -> Void) {
