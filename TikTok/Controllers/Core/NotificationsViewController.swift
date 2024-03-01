@@ -25,18 +25,18 @@ class NotificationsViewController: UIViewController {
             UITableViewCell.self,
             forCellReuseIdentifier: "cell"
         )
-//        table.register(
-//            NotificationsUserFollowTableViewCell.self,
-//            forCellReuseIdentifier: NotificationsUserFollowTableViewCell.identifier
-//        )
-//        table.register(
-//            NotificationsPostCommentTableViewCell.self,
-//            forCellReuseIdentifier: NotificationsPostCommentTableViewCell.identifier
-//        )
-//        table.register(
-//            NotificationsPostLikeTableViewCell.self,
-//            forCellReuseIdentifier: NotificationsPostLikeTableViewCell.identifier
-//        )
+        table.register(
+            NotificationsUserFollowTableViewCell.self,
+            forCellReuseIdentifier: NotificationsUserFollowTableViewCell.identifier
+        )
+        table.register(
+            NotificationsPostCommentTableViewCell.self,
+            forCellReuseIdentifier: NotificationsPostCommentTableViewCell.identifier
+        )
+        table.register(
+            NotificationsPostLikeTableViewCell.self,
+            forCellReuseIdentifier: NotificationsPostLikeTableViewCell.identifier
+        )
         return table
     }()
     
@@ -51,8 +51,8 @@ class NotificationsViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.addSubview(noNotificationsLabel)
         view.addSubview(tableView)
+        view.addSubview(noNotificationsLabel)
         view.backgroundColor = .systemBackground
         tableView.delegate = self
         tableView.dataSource = self
@@ -104,12 +104,53 @@ extension NotificationsViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let model = notifications[indexPath.row]
-        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
-        cell.textLabel?.text = model.text
-        return cell
+        
+        switch model.type {
+            
+        case .postLike(let postName):
+            guard let cell = tableView.dequeueReusableCell(
+                withIdentifier: NotificationsPostLikeTableViewCell.identifier,
+                for: indexPath
+            ) as? NotificationsPostLikeTableViewCell else {
+                return tableView.dequeueReusableCell(
+                    withIdentifier: "cell",
+                    for: indexPath
+                )
+            }
+            //            cell.delegate = self
+            cell.configure(with: postName, model: model)
+            return cell
+        case .userFollow(let username):
+            guard let cell = tableView.dequeueReusableCell(
+                withIdentifier: NotificationsUserFollowTableViewCell.identifier,
+                for: indexPath
+            ) as? NotificationsUserFollowTableViewCell else {
+                return tableView.dequeueReusableCell(
+                    withIdentifier: "cell",
+                    for: indexPath
+                )
+            }
+            //            cell.delegate = self
+            cell.configure(with: username, model: model)
+            return cell
+        case .postComment(let postName):
+            guard let cell = tableView.dequeueReusableCell(
+                withIdentifier: NotificationsPostCommentTableViewCell.identifier,
+                for: indexPath
+            ) as? NotificationsPostCommentTableViewCell else {
+                return tableView.dequeueReusableCell(
+                    withIdentifier: "cell",
+                    for: indexPath
+                )
+            }
+            //            cell.delegate = self  model)
+            return cell
+        }
     }
 }
-
 extension NotificationsViewController: UITableViewDelegate {
     
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 80
+    }
 }

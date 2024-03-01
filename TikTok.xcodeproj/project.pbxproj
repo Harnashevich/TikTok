@@ -31,6 +31,9 @@
 		9F706CFC2B909DAF002AE0B0 /* RecordButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F706CFB2B909DAF002AE0B0 /* RecordButton.swift */; };
 		9F706CFE2B90A52E002AE0B0 /* CaptionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F706CFD2B90A52E002AE0B0 /* CaptionViewController.swift */; };
 		9F9F17052B91D687004672F6 /* Notifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F9F17042B91D687004672F6 /* Notifications.swift */; };
+		9F9F170A2B921507004672F6 /* NotificationsUserFollowTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F9F17092B921507004672F6 /* NotificationsUserFollowTableViewCell.swift */; };
+		9F9F170C2B92159C004672F6 /* NotificationsPostLikeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F9F170B2B92159C004672F6 /* NotificationsPostLikeTableViewCell.swift */; };
+		9F9F170E2B9215B1004672F6 /* NotificationsPostCommentTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F9F170D2B9215B1004672F6 /* NotificationsPostCommentTableViewCell.swift */; };
 		9FD3713A2B7E0B25002ED893 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FD371392B7E0B25002ED893 /* Extensions.swift */; };
 		9FD3713C2B7E19DA002ED893 /* PostModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FD3713B2B7E19DA002ED893 /* PostModel.swift */; };
 		9FD7B3432B8363710082E37C /* CommentsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FD7B3422B8363710082E37C /* CommentsViewController.swift */; };
@@ -89,6 +92,9 @@
 		9F706CFB2B909DAF002AE0B0 /* RecordButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordButton.swift; sourceTree = "<group>"; };
 		9F706CFD2B90A52E002AE0B0 /* CaptionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CaptionViewController.swift; sourceTree = "<group>"; };
 		9F9F17042B91D687004672F6 /* Notifications.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Notifications.swift; sourceTree = "<group>"; };
+		9F9F17092B921507004672F6 /* NotificationsUserFollowTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsUserFollowTableViewCell.swift; sourceTree = "<group>"; };
+		9F9F170B2B92159C004672F6 /* NotificationsPostLikeTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsPostLikeTableViewCell.swift; sourceTree = "<group>"; };
+		9F9F170D2B9215B1004672F6 /* NotificationsPostCommentTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsPostCommentTableViewCell.swift; sourceTree = "<group>"; };
 		9FD371392B7E0B25002ED893 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		9FD3713B2B7E19DA002ED893 /* PostModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostModel.swift; sourceTree = "<group>"; };
 		9FD7B3422B8363710082E37C /* CommentsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentsViewController.swift; sourceTree = "<group>"; };
@@ -287,10 +293,21 @@
 		9F6BE5172B7B612100D4DA6A /* Other */ = {
 			isa = PBXGroup;
 			children = (
+				9F9F17082B9214EB004672F6 /* Notifications */,
 				9FE1CC362B84C11800C87632 /* CommentTableViewCell.swift */,
 				9F706CFB2B909DAF002AE0B0 /* RecordButton.swift */,
 			);
 			path = Other;
+			sourceTree = "<group>";
+		};
+		9F9F17082B9214EB004672F6 /* Notifications */ = {
+			isa = PBXGroup;
+			children = (
+				9F9F17092B921507004672F6 /* NotificationsUserFollowTableViewCell.swift */,
+				9F9F170B2B92159C004672F6 /* NotificationsPostLikeTableViewCell.swift */,
+				9F9F170D2B9215B1004672F6 /* NotificationsPostCommentTableViewCell.swift */,
+			);
+			path = Notifications;
 			sourceTree = "<group>";
 		};
 		9FED47572B8C83AB0063A9C5 /* Explore */ = {
@@ -474,6 +491,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				9F6BE5232B7B625200D4DA6A /* HapticsManager.swift in Sources */,
+				9F9F170E2B9215B1004672F6 /* NotificationsPostCommentTableViewCell.swift in Sources */,
 				9FD3713A2B7E0B25002ED893 /* Extensions.swift in Sources */,
 				9F6BE51F2B7B621700D4DA6A /* DatabaseManager.swift in Sources */,
 				9FE1CC372B84C11800C87632 /* CommentTableViewCell.swift in Sources */,
@@ -492,6 +510,7 @@
 				9FDF149A2B879C5F00CA0B5C /* ExploreCell.swift in Sources */,
 				9FDF149E2B879E1700CA0B5C /* ExploreBannerViewModel.swift in Sources */,
 				9FED47762B8DF9E20063A9C5 /* AuthField.swift in Sources */,
+				9F9F170A2B921507004672F6 /* NotificationsUserFollowTableViewCell.swift in Sources */,
 				9F706CFE2B90A52E002AE0B0 /* CaptionViewController.swift in Sources */,
 				9FED47722B8CB3E60063A9C5 /* TitleHeaderCollectionReusableView.swift in Sources */,
 				9FED47612B8C84030063A9C5 /* ExploreHashtagCollectionViewCell.swift in Sources */,
@@ -499,6 +518,7 @@
 				9F6BE5152B7B5E4A00D4DA6A /* TabBarViewController.swift in Sources */,
 				9FD7B3472B8372A50082E37C /* User.swift in Sources */,
 				9F13DC062B7A6599009202C7 /* HomeViewController.swift in Sources */,
+				9F9F170C2B92159C004672F6 /* NotificationsPostLikeTableViewCell.swift in Sources */,
 				9F6BE5112B7B5E1200D4DA6A /* SignUpViewController.swift in Sources */,
 				9F6BE5212B7B623800D4DA6A /* AuthenticationManager.swift in Sources */,
 				9F6BE5092B7B5CD200D4DA6A /* NotificationsViewController.swift in Sources */,
