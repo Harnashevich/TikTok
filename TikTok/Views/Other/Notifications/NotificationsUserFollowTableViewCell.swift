@@ -69,9 +69,7 @@ class NotificationsUserFollowTableViewCell: UITableViewCell {
     }
 
     @objc func didTapAvatar() {
-        guard let username = username else {
-            return
-        }
+        guard let username else { return }
         delegate?.notificationsUserFollowTableViewCell(self,
                                                        didTapAvatarFor: username)
     }

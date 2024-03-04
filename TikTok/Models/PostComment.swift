@@ -23,7 +23,7 @@ struct PostComment {
         let text = [
             "This is cool",
             "This is rad",
-            "Im learning so muchdslkjjdsjfkdsjfhdhsjkfjkhdsjkhfkdhkjshjkfhkj!"
+            "Im learning so muchdslkjjdsjfkdsjfhdhsjkfjkhdsjkhfkdhkjshjkfhkj   !"
         ]
 
         for comment in text {
