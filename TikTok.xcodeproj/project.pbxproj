@@ -13,6 +13,8 @@
 		9F13DC062B7A6599009202C7 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F13DC052B7A6599009202C7 /* HomeViewController.swift */; };
 		9F13DC0B2B7A659B009202C7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9F13DC0A2B7A659B009202C7 /* Assets.xcassets */; };
 		9F13DC0E2B7A659B009202C7 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9F13DC0C2B7A659B009202C7 /* LaunchScreen.storyboard */; };
+		9F5E595C2B9724F0001FA8F9 /* ProfileHeaderCollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F5E595B2B9724F0001FA8F9 /* ProfileHeaderCollectionReusableView.swift */; };
+		9F5E595E2B972511001FA8F9 /* ProfileHeaderViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F5E595D2B972511001FA8F9 /* ProfileHeaderViewModel.swift */; };
 		9F6BE5042B7B5CAB00D4DA6A /* ExploreViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F6BE5032B7B5CAB00D4DA6A /* ExploreViewController.swift */; };
 		9F6BE5062B7B5CB700D4DA6A /* CameraViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F6BE5052B7B5CB700D4DA6A /* CameraViewController.swift */; };
 		9F6BE5092B7B5CD200D4DA6A /* NotificationsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F6BE5082B7B5CD200D4DA6A /* NotificationsViewController.swift */; };
@@ -74,6 +76,8 @@
 		9F13DC0A2B7A659B009202C7 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		9F13DC0D2B7A659B009202C7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		9F13DC0F2B7A659C009202C7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		9F5E595B2B9724F0001FA8F9 /* ProfileHeaderCollectionReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileHeaderCollectionReusableView.swift; sourceTree = "<group>"; };
+		9F5E595D2B972511001FA8F9 /* ProfileHeaderViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileHeaderViewModel.swift; sourceTree = "<group>"; };
 		9F6BE5032B7B5CAB00D4DA6A /* ExploreViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExploreViewController.swift; sourceTree = "<group>"; };
 		9F6BE5052B7B5CB700D4DA6A /* CameraViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraViewController.swift; sourceTree = "<group>"; };
 		9F6BE5082B7B5CD200D4DA6A /* NotificationsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsViewController.swift; sourceTree = "<group>"; };
@@ -240,6 +244,7 @@
 				9FDF149F2B879E7500CA0B5C /* ExplorePostViewModel.swift */,
 				9FDF14A12B879E8500CA0B5C /* ExploreHashtagViewModel.swift */,
 				9FDF14A32B879E9A00CA0B5C /* ExploreUserViewModel.swift */,
+				9F5E595D2B972511001FA8F9 /* ProfileHeaderViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -296,6 +301,7 @@
 				9F9F17082B9214EB004672F6 /* Notifications */,
 				9FE1CC362B84C11800C87632 /* CommentTableViewCell.swift */,
 				9F706CFB2B909DAF002AE0B0 /* RecordButton.swift */,
+				9F5E595B2B9724F0001FA8F9 /* ProfileHeaderCollectionReusableView.swift */,
 			);
 			path = Other;
 			sourceTree = "<group>";
@@ -502,6 +508,7 @@
 				9FDF14A22B879E8500CA0B5C /* ExploreHashtagViewModel.swift in Sources */,
 				9F6BE5132B7B5E2000D4DA6A /* SettingsViewController.swift in Sources */,
 				9FED475B2B8C83D50063A9C5 /* ExploreBannerCollectionViewCell.swift in Sources */,
+				9F5E595C2B9724F0001FA8F9 /* ProfileHeaderCollectionReusableView.swift in Sources */,
 				9F6BE5192B7B614700D4DA6A /* PostViewController.swift in Sources */,
 				9FED47652B8C992B0063A9C5 /* ExploreManager.swift in Sources */,
 				9F6BE5062B7B5CB700D4DA6A /* CameraViewController.swift in Sources */,
@@ -533,6 +540,7 @@
 				9FED47702B8C9C990063A9C5 /* Creator.swift in Sources */,
 				9FD3713C2B7E19DA002ED893 /* PostModel.swift in Sources */,
 				9F6BE50B2B7B5DD100D4DA6A /* ProfileViewController.swift in Sources */,
+				9F5E595E2B972511001FA8F9 /* ProfileHeaderViewModel.swift in Sources */,
 				9F6BE51D2B7B616C00D4DA6A /* StorageManager.swift in Sources */,
 				9F13DC022B7A6599009202C7 /* AppDelegate.swift in Sources */,
 				9F9F17052B91D687004672F6 /* Notifications.swift in Sources */,
