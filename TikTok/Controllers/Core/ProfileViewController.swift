@@ -5,9 +5,26 @@
 //  Created by Andrei Harnashevich on 13.02.24.
 //
 
+import ProgressHUD
 import UIKit
 
 class ProfileViewController: UIViewController {
+    
+    var isCurrentUserProfile: Bool {
+        if let username = UserDefaults.standard.string(forKey: "username") {
+            
+            print("user.username.lowercased \(user.username.lowercased())")
+            print("username.lowercased() \(username.lowercased())")
+            
+            return user.username.lowercased() == username.lowercased()
+        }
+        return false
+    }
+    
+    enum PicturePickerType {
+        case camera
+        case photoLibrary
+    }
     
     var user: User
     
@@ -27,6 +44,8 @@ class ProfileViewController: UIViewController {
 //                            forCellWithReuseIdentifier: PostCollectionViewCell.identifer)
         return collection
     }()
+    
+    private var posts = [PostModel]()
     
     // MARK: - Init
 
@@ -59,11 +78,21 @@ class ProfileViewController: UIViewController {
                 action: #selector(didTapSettings)
             )
         }
+        fetchPosts()
     }
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         collectionView.frame = view.bounds
+    }
+    
+    func fetchPosts() {
+        DatabaseManager.shared.getPosts(for: user) { [weak self] postModels in
+            DispatchQueue.main.async {
+                self?.posts = postModels
+                self?.collectionView.reloadData()
+            }
+        }
     }
     
     @objc func didTapSettings() {
@@ -74,15 +103,12 @@ class ProfileViewController: UIViewController {
 
 extension ProfileViewController: UICollectionViewDataSource {
     
-    func numberOfSections(in collectionView: UICollectionView) -> Int {
-        1
-    }
-    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        30
+        posts.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let postModel = posts[indexPath.row]
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath)
         cell.backgroundColor = .systemBlue
         return cell
@@ -101,10 +127,10 @@ extension ProfileViewController: UICollectionViewDataSource {
         header.delegate = self
         
         let viewModel = ProfileHeaderViewModel(
-            avatarImageURL: nil,
+            avatarImageURL: user.profilePictureURL,
             followerCount: 120,
             followingCount: 300,
-            isFollowing: false
+            isFollowing: isCurrentUserProfile ? nil : false
         )
         header.configure(with: viewModel)
         
@@ -142,8 +168,6 @@ extension ProfileViewController: ProfileHeaderCollectionReusableViewDelegate {
         } else {
             // follow or unfolow
         }
-        
-        
     }
     
     func profileHeaderCollectionReusableView(_ header: ProfileHeaderCollectionReusableView,
@@ -158,7 +182,71 @@ extension ProfileViewController: ProfileHeaderCollectionReusableViewDelegate {
     
     func profileHeaderCollectionReusableView(_ header: ProfileHeaderCollectionReusableView,
                                              didTapAvatarFor viewModel: ProfileHeaderViewModel) {
+        guard isCurrentUserProfile else {
+            return
+        }
+        HapticsManager.shared.vibrateForSelection()
+
+        let actionSheet = UIAlertController(title: "Profile Picture", message: nil, preferredStyle: .actionSheet)
+        actionSheet.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        actionSheet.addAction(UIAlertAction(title: "Camera", style: .default, handler: { _  in
+            DispatchQueue.main.async {
+                self.presentProfilePicturePicker(type: .camera)
+            }
+        }))
+        actionSheet.addAction(UIAlertAction(title: "Photo Library", style: .default, handler: { _ in
+            DispatchQueue.main.async {
+                self.presentProfilePicturePicker(type: .photoLibrary)
+            }
+        }))
+
+        present(actionSheet, animated: true)
         
+    }
+    
+    func presentProfilePicturePicker(type: PicturePickerType) {
+        let picker = UIImagePickerController()
+        picker.sourceType = type == .camera ? .camera : .photoLibrary
+        picker.delegate = self
+        picker.allowsEditing = true
+        present(picker, animated: true)
+    }
+}
+
+extension ProfileViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        picker.dismiss(animated: true)
+    }
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]) {
+        picker.dismiss(animated: true)
+        guard let image = info[UIImagePickerController.InfoKey.editedImage] as? UIImage else {
+            return
+        }
+        
+        ProgressHUD.animate("Uploading")
+        StorageManager.shared.uploadProfilePicture(with: image) { [weak self] result in
+            DispatchQueue.main.async {
+                guard let strongSelf = self else {
+                    return
+                }
+                switch result {
+                case .success(let downloadURL):
+                    UserDefaults.standard.setValue(downloadURL.absoluteString, forKey: "profile_picture_url")
+                    HapticsManager.shared.vibrate(for: .success)
+                    strongSelf.user = User(
+                        username: strongSelf.user.username,
+                        profilePictureURL: downloadURL,
+                        identifier: strongSelf.user.username
+                    )
+                    ProgressHUD.succeed("Updated!")
+                    strongSelf.collectionView.reloadData()
+                case .failure:
+                    HapticsManager.shared.vibrate(for: .error)
+                    ProgressHUD.error("Failed to uploade profile picture.")
+                }
+            }
+        }
     }
 }
 

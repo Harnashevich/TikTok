@@ -245,7 +245,13 @@ extension NotificationsViewController {
     
     func openPost(with identifier: String) {
         HapticsManager.shared.vibrateForSelection()
-        let vc = PostViewController(model: PostModel(identifier: identifier))
+        let vc = PostViewController(model: PostModel(
+            identifier: identifier,
+            user: User(
+                username: "kanyewest",
+                profilePictureURL: nil,
+                identifier: UUID().uuidString
+            )))
         vc.title = "Video"
         navigationController?.pushViewController(vc, animated: true)
     }
