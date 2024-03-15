@@ -83,13 +83,13 @@ final class StorageManager {
     /// - Parameters:
     ///   - post: Post model to get url for
     ///   - completion: Async callback
-//    func getDownloadURL(for post: PostModel, completion: @escaping (Result<URL, Error>) -> Void) {
-//        storageBucket.child(post.videoChildPath).downloadURL { url, error in
-//            if let error = error {
-//                completion(.failure(error))
-//            } else if let url = url {
-//                completion(.success(url))
-//            }
-//        }
-//    }
+    func getDownloadURL(for post: PostModel, completion: @escaping (Result<URL, Error>) -> Void) {
+        storageBucket.child(post.videoChildPath).downloadURL { url, error in
+            if let error = error {
+                completion(.failure(error))
+            } else if let url = url {
+                completion(.success(url))
+            }
+        }
+    }
 }

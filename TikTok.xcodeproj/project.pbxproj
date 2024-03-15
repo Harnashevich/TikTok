@@ -13,6 +13,8 @@
 		9F13DC062B7A6599009202C7 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F13DC052B7A6599009202C7 /* HomeViewController.swift */; };
 		9F13DC0B2B7A659B009202C7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9F13DC0A2B7A659B009202C7 /* Assets.xcassets */; };
 		9F13DC0E2B7A659B009202C7 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9F13DC0C2B7A659B009202C7 /* LaunchScreen.storyboard */; };
+		9F35442A2BA30446005D341E /* PostCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F3544292BA30446005D341E /* PostCollectionViewCell.swift */; };
+		9F35442C2BA34D2C005D341E /* EditProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F35442B2BA34D2C005D341E /* EditProfileViewController.swift */; };
 		9F5E595C2B9724F0001FA8F9 /* ProfileHeaderCollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F5E595B2B9724F0001FA8F9 /* ProfileHeaderCollectionReusableView.swift */; };
 		9F5E595E2B972511001FA8F9 /* ProfileHeaderViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F5E595D2B972511001FA8F9 /* ProfileHeaderViewModel.swift */; };
 		9F6BE5042B7B5CAB00D4DA6A /* ExploreViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F6BE5032B7B5CAB00D4DA6A /* ExploreViewController.swift */; };
@@ -76,6 +78,8 @@
 		9F13DC0A2B7A659B009202C7 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		9F13DC0D2B7A659B009202C7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		9F13DC0F2B7A659C009202C7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		9F3544292BA30446005D341E /* PostCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostCollectionViewCell.swift; sourceTree = "<group>"; };
+		9F35442B2BA34D2C005D341E /* EditProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileViewController.swift; sourceTree = "<group>"; };
 		9F5E595B2B9724F0001FA8F9 /* ProfileHeaderCollectionReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileHeaderCollectionReusableView.swift; sourceTree = "<group>"; };
 		9F5E595D2B972511001FA8F9 /* ProfileHeaderViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileHeaderViewModel.swift; sourceTree = "<group>"; };
 		9F6BE5032B7B5CAB00D4DA6A /* ExploreViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExploreViewController.swift; sourceTree = "<group>"; };
@@ -283,6 +287,7 @@
 				9F6BE5182B7B614700D4DA6A /* PostViewController.swift */,
 				9FD7B3422B8363710082E37C /* CommentsViewController.swift */,
 				9F706CFD2B90A52E002AE0B0 /* CaptionViewController.swift */,
+				9F35442B2BA34D2C005D341E /* EditProfileViewController.swift */,
 			);
 			path = Other;
 			sourceTree = "<group>";
@@ -302,6 +307,7 @@
 				9FE1CC362B84C11800C87632 /* CommentTableViewCell.swift */,
 				9F706CFB2B909DAF002AE0B0 /* RecordButton.swift */,
 				9F5E595B2B9724F0001FA8F9 /* ProfileHeaderCollectionReusableView.swift */,
+				9F3544292BA30446005D341E /* PostCollectionViewCell.swift */,
 			);
 			path = Other;
 			sourceTree = "<group>";
@@ -529,6 +535,7 @@
 				9F6BE5112B7B5E1200D4DA6A /* SignUpViewController.swift in Sources */,
 				9F6BE5212B7B623800D4DA6A /* AuthenticationManager.swift in Sources */,
 				9F6BE5092B7B5CD200D4DA6A /* NotificationsViewController.swift in Sources */,
+				9F35442C2BA34D2C005D341E /* EditProfileViewController.swift in Sources */,
 				9F706CFC2B909DAF002AE0B0 /* RecordButton.swift in Sources */,
 				9FED47682B8C9B640063A9C5 /* ExploreResponse.swift in Sources */,
 				9FD7B3452B8372680082E37C /* PostComment.swift in Sources */,
@@ -544,6 +551,7 @@
 				9F6BE51D2B7B616C00D4DA6A /* StorageManager.swift in Sources */,
 				9F13DC022B7A6599009202C7 /* AppDelegate.swift in Sources */,
 				9F9F17052B91D687004672F6 /* Notifications.swift in Sources */,
+				9F35442A2BA30446005D341E /* PostCollectionViewCell.swift in Sources */,
 				9FED476C2B8C9C770063A9C5 /* Post.swift in Sources */,
 				9FED476A2B8C9C5E0063A9C5 /* Banner.swift in Sources */,
 				9F13DC042B7A6599009202C7 /* SceneDelegate.swift in Sources */,

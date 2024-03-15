@@ -12,10 +12,6 @@ class ProfileViewController: UIViewController {
     
     var isCurrentUserProfile: Bool {
         if let username = UserDefaults.standard.string(forKey: "username") {
-            
-            print("user.username.lowercased \(user.username.lowercased())")
-            print("username.lowercased() \(username.lowercased())")
-            
             return user.username.lowercased() == username.lowercased()
         }
         return false
@@ -34,18 +30,25 @@ class ProfileViewController: UIViewController {
         let collection = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collection.backgroundColor = .systemBackground
         collection.showsVerticalScrollIndicator = false
+        collection.alwaysBounceVertical = true
         collection.register(UICollectionViewCell.self, forCellWithReuseIdentifier: "cell")
         collection.register(
             ProfileHeaderCollectionReusableView.self,
             forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
             withReuseIdentifier: ProfileHeaderCollectionReusableView.identifier
         )
-//        collection.register(PostCollectionViewCell.self,
-//                            forCellWithReuseIdentifier: PostCollectionViewCell.identifer)
+        collection.register(
+            PostCollectionViewCell.self,
+            forCellWithReuseIdentifier: PostCollectionViewCell.identifer
+        )
         return collection
     }()
     
     private var posts = [PostModel]()
+    
+    private var followers = [String]()
+    private var following = [String]()
+    private var isFollower: Bool = false
     
     // MARK: - Init
 
@@ -109,8 +112,13 @@ extension ProfileViewController: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let postModel = posts[indexPath.row]
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath)
-        cell.backgroundColor = .systemBlue
+        guard let cell = collectionView.dequeueReusableCell(
+            withReuseIdentifier: PostCollectionViewCell.identifer,
+            for: indexPath
+        ) as? PostCollectionViewCell else {
+            return UICollectionViewCell()
+        }
+        cell.configure(with: postModel)
         return cell
     }
     
@@ -126,13 +134,46 @@ extension ProfileViewController: UICollectionViewDataSource {
         
         header.delegate = self
         
-        let viewModel = ProfileHeaderViewModel(
-            avatarImageURL: user.profilePictureURL,
-            followerCount: 120,
-            followingCount: 300,
-            isFollowing: isCurrentUserProfile ? nil : false
-        )
-        header.configure(with: viewModel)
+        let group = DispatchGroup()
+        group.enter()
+        group.enter()
+        group.enter()
+        
+        DatabaseManager.shared.getRelationships(for: user, type: .followers) { [weak self] followers in
+            guard let self else { return }
+            defer {
+                group.leave()
+            }
+            self.followers = followers
+        }
+        
+        DatabaseManager.shared.getRelationships(for: user, type: .following) { [weak self] following in
+            guard let self else { return }
+            defer {
+                group.leave()
+            }
+            self.following = following
+        } 
+        
+        DatabaseManager.shared.isValidRelationship(
+            for: user,
+            type: .followers
+        ) { [weak self] isFollower in
+            defer {
+                group.leave()
+            }
+            self?.isFollower = isFollower
+        }
+        
+        group.notify(queue: .main) {
+            let viewModel = ProfileHeaderViewModel(
+                avatarImageURL: self.user.profilePictureURL,
+                followerCount: self.followers.count,
+                followingCount: self.following.count,
+                isFollowing: self.isCurrentUserProfile ? nil : self.isFollower
+            )
+            header.configure(with: viewModel)
+        }
         
         return header
     }
@@ -162,22 +203,56 @@ extension ProfileViewController: ProfileHeaderCollectionReusableViewDelegate {
     
     func profileHeaderCollectionReusableView(_ header: ProfileHeaderCollectionReusableView,
                                              didTapPrimaryButtonWith viewModel: ProfileHeaderViewModel) {
-        guard let currentUsername = UserDefaults.standard.string(forKey: "username") else { return }
-        if self.user.username == currentUsername {
-            // edit profile
+        HapticsManager.shared.vibrateForSelection()
+        if isCurrentUserProfile {
+            // Edit Proflie
+            let vc = EditProfileViewController()
+            let navVC = UINavigationController(rootViewController: vc)
+            present(navVC, animated: true)
         } else {
-            // follow or unfolow
+            // Follow or unfolow current users profile that we are viewing
+            if self.isFollower {
+                // Unfollow
+                DatabaseManager.shared.updateRelationship(for: user, follow: false) { [weak self] success in
+                    if success {
+                        DispatchQueue.main.async {
+                            self?.isFollower = false
+                            self?.collectionView.reloadData()
+                        }
+                    } else {
+
+                    }
+                }
+            } else {
+                // Follow
+                DatabaseManager.shared.updateRelationship(for: user, follow: true) { [weak self] success in
+                    if success {
+                        DispatchQueue.main.async {
+                            self?.isFollower = true
+                            self?.collectionView.reloadData()
+                        }
+                    } else {
+
+                    }
+                }
+            }
         }
     }
     
     func profileHeaderCollectionReusableView(_ header: ProfileHeaderCollectionReusableView,
                                              didTapFollowersWith viewModel: ProfileHeaderViewModel) {
-        
+        HapticsManager.shared.vibrateForSelection()
+        let vc = UserListViewController(type: .followers, user: user)
+        vc.users = followers
+        navigationController?.pushViewController(vc, animated: true)
     }
     
     func profileHeaderCollectionReusableView(_ header: ProfileHeaderCollectionReusableView,
                                              didTapFollowingButtonWith viewModel: ProfileHeaderViewModel) {
-        
+        HapticsManager.shared.vibrateForSelection()
+        let vc = UserListViewController(type: .following, user: user)
+        vc.users = following
+        navigationController?.pushViewController(vc, animated: true)
     }
     
     func profileHeaderCollectionReusableView(_ header: ProfileHeaderCollectionReusableView,
@@ -254,5 +329,23 @@ extension ProfileViewController: UICollectionViewDelegate {
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         collectionView.deselectItem(at: indexPath, animated: true)
+        // Open post
+        HapticsManager.shared.vibrateForSelection()
+        let post = posts[indexPath.row]
+        let vc = PostViewController(model: post)
+        vc.delegate = self
+        vc.title = "Video"
+        navigationController?.pushViewController(vc, animated: true)
     }
 }
+
+extension ProfileViewController: PostViewControllerDelegate {
+    func postViewController(_ vc: PostViewController, didTapCommentButtoonFor post: PostModel) {
+        // Present comments
+    }
+
+    func postViewController(_ vc: PostViewController, didTapProfileButtoonFor post: PostModel) {
+        // Push another profile
+    }
+}
+

@@ -160,6 +160,54 @@ final class DatabaseManager {
         }
     }
     
+    /// Get relationship status for current and target user
+    /// - Parameters:
+    ///   - user: Target user to check following status for
+    ///   - type: Type to be checked
+    ///   - completion: Async result callback
+    public func getRelationships(
+        for user: User,
+        type: UserListViewController.ListType,
+        completion: @escaping ([String]) -> Void
+    ) {
+        let path = "users/\(user.username.lowercased())/\(type.rawValue)"
+
+        database.child(path).observeSingleEvent(of: .value) { snapshot in
+            guard let usernameCollection = snapshot.value as? [String] else {
+                completion([])
+                return
+            }
+
+            completion(usernameCollection)
+        }
+    }
+    
+    /// Check if a relationship is valid
+    /// - Parameters:
+    ///   - user: Target user to check
+    ///   - type: Type to check
+    ///   - completion: Result callback
+    public func isValidRelationship(
+        for user: User,
+        type: UserListViewController.ListType,
+        completion: @escaping (Bool) -> Void
+    ) {
+        guard let currentUserUsername = UserDefaults.standard.string(forKey: "username")?.lowercased() else {
+            return
+        }
+        
+        let path = "users/\(user.username.lowercased())/\(type.rawValue)"
+        
+        database.child(path).observeSingleEvent(of: .value) { snapshot in
+            guard let usernameCollection = snapshot.value as? [String] else {
+                completion(false)
+                return
+            }
+            
+            completion(usernameCollection.contains(currentUserUsername))
+        }
+    }
+    
     /// Update follow status for user
     /// - Parameters:
     ///   - user: Target user
