@@ -76,6 +76,7 @@ class TabBarViewController: UITabBarController {
         cameraNav.navigationBar.tintColor = .white
 
         nav3.navigationBar.tintColor = .label
+        nav4.navigationBar.tintColor = .label
         
         nav1.tabBarItem = UITabBarItem(title: nil, image: UIImage(systemName: "house"), tag: 1)
         nav2.tabBarItem = UITabBarItem(title: nil, image: UIImage(systemName: "safari"), tag: 2)

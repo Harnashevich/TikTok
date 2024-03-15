@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SafariServices
 
 class SettingsViewController: UIViewController {
     
@@ -15,15 +16,72 @@ class SettingsViewController: UIViewController {
             UITableViewCell.self,
             forCellReuseIdentifier: "cell"
         )
-//        table.register(
-//            SwitchTableViewCell.self,
-//            forCellReuseIdentifier: SwitchTableViewCell.identifier
-//        )
+        table.register(
+            SwitchTableViewCell.self,
+            forCellReuseIdentifier: SwitchTableViewCell.identifier
+        )
         return table
     }()
+    
+    var sections = [SettingsSection]()
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        sections = [
+            SettingsSection(
+                title: "Preferences",
+                options: [
+                    SettingsOption(title: "Save Videos", handler: { })
+                ]
+            ),
+            SettingsSection(
+                title: "Enjoying the app?",
+                options: [
+                    SettingsOption(title: "Rate App", handler: {
+                        DispatchQueue.main.async {
+                            // Appirater.tryToShowPrompt()
+                            // UIApplication.shared.open(URL(string: "")!, options: [:], completionHandler: nil)
+                        }
+                    }),
+                    SettingsOption(title: "Share App", handler: { [weak self] in
+                        DispatchQueue.main.async {
+                            guard let url = URL(string: "https://www.facebook.com") else {
+                                return
+                            }
+                            let vc = UIActivityViewController(
+                                activityItems: [url],
+                                applicationActivities: [])
+                            self?.present(vc, animated: true, completion: nil)
+                        }
+                    })
+                ]
+            ),
+            SettingsSection(
+                title: "Information",
+                options: [
+                    SettingsOption(title: "Terms of Service", handler: { [weak self] in
+                        DispatchQueue.main.async {
+                            guard let url = URL(string: "https://www.tiktok.com/legal/terms-of-use") else {
+                                return
+                            }
+                            let vc = SFSafariViewController(url: url)
+                            self?.present(vc, animated: true)
+                        }
+                    }),
+                    SettingsOption(title: "Privacy Policy", handler: { [weak self] in
+                        DispatchQueue.main.async {
+                            guard let url = URL(string: "https://www.tiktok.com/legal/privacy-policy") else {
+                                return
+                            }
+                            let vc = SFSafariViewController(url: url)
+                            self?.present(vc, animated: true)
+                        }
+                    })
+                ]
+            )
+        ]
+        
         title = "Settings"
         view.backgroundColor = .systemBackground
         view.addSubview(tableView)
@@ -87,17 +145,55 @@ class SettingsViewController: UIViewController {
 
 extension SettingsViewController: UITableViewDataSource {
     
+    func numberOfSections(in tableView: UITableView) -> Int {
+        sections.count
+    }
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        10
+        sections[section].options.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
-        cell.textLabel?.text = "Hello"
+        let model = sections[indexPath.section].options[indexPath.row]
+
+        if model.title == "Save Videos" {
+            guard let cell = tableView.dequeueReusableCell(
+                    withIdentifier: SwitchTableViewCell.identifier,
+                    for: indexPath
+            ) as? SwitchTableViewCell else {
+                return UITableViewCell()
+            }
+            cell.delegate = self
+            cell.configure(with: SwitchCellViewModel(title: model.title, isOn: UserDefaults.standard.bool(forKey: "save_video")))
+            return cell
+        }
+
+        let cell = tableView.dequeueReusableCell(
+            withIdentifier: "cell",
+            for: indexPath
+        )
+        cell.accessoryType = .disclosureIndicator
+        cell.textLabel?.text = model.title
         return cell
     }
 }
 
 extension SettingsViewController: UITableViewDelegate {
     
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        let model = sections[indexPath.section].options[indexPath.row]
+        model.handler()
+    }
+
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        return sections[section].title
+    }
+}
+
+extension SettingsViewController: SwitchTableViewCellDelegate {
+    func switchTableViewCell(_ cell: SwitchTableViewCell, didUpdateSwitchTo isOn: Bool) {
+        HapticsManager.shared.vibrateForSelection()
+        UserDefaults.standard.setValue(isOn, forKey: "save_video")
+    }
 }
