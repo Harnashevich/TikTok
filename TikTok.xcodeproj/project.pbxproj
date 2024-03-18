@@ -16,9 +16,9 @@
 		9F35442A2BA30446005D341E /* PostCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F3544292BA30446005D341E /* PostCollectionViewCell.swift */; };
 		9F35442C2BA34D2C005D341E /* EditProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F35442B2BA34D2C005D341E /* EditProfileViewController.swift */; };
 		9F3544342BA45859005D341E /* SettingsSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F3544332BA45859005D341E /* SettingsSection.swift */; };
-		9F3544362BA45870005D341E /* SettingsOption.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F3544352BA45870005D341E /* SettingsOption.swift */; };
 		9F3544382BA4633F005D341E /* SwitchTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F3544372BA4633F005D341E /* SwitchTableViewCell.swift */; };
 		9F35443A2BA46361005D341E /* SwitchCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F3544392BA46361005D341E /* SwitchCellViewModel.swift */; };
+		9F35443C2BA72FE7005D341E /* SettingsOption.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F35443B2BA72FE6005D341E /* SettingsOption.swift */; };
 		9F5E595C2B9724F0001FA8F9 /* ProfileHeaderCollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F5E595B2B9724F0001FA8F9 /* ProfileHeaderCollectionReusableView.swift */; };
 		9F5E595E2B972511001FA8F9 /* ProfileHeaderViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F5E595D2B972511001FA8F9 /* ProfileHeaderViewModel.swift */; };
 		9F6BE5042B7B5CAB00D4DA6A /* ExploreViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F6BE5032B7B5CAB00D4DA6A /* ExploreViewController.swift */; };
@@ -85,9 +85,9 @@
 		9F3544292BA30446005D341E /* PostCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostCollectionViewCell.swift; sourceTree = "<group>"; };
 		9F35442B2BA34D2C005D341E /* EditProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileViewController.swift; sourceTree = "<group>"; };
 		9F3544332BA45859005D341E /* SettingsSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsSection.swift; sourceTree = "<group>"; };
-		9F3544352BA45870005D341E /* SettingsOption.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SettingsOption.swift; path = ../../../../../Desktop/SettingsOption.swift; sourceTree = "<group>"; };
 		9F3544372BA4633F005D341E /* SwitchTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwitchTableViewCell.swift; sourceTree = "<group>"; };
 		9F3544392BA46361005D341E /* SwitchCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwitchCellViewModel.swift; sourceTree = "<group>"; };
+		9F35443B2BA72FE6005D341E /* SettingsOption.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsOption.swift; sourceTree = "<group>"; };
 		9F5E595B2B9724F0001FA8F9 /* ProfileHeaderCollectionReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileHeaderCollectionReusableView.swift; sourceTree = "<group>"; };
 		9F5E595D2B972511001FA8F9 /* ProfileHeaderViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileHeaderViewModel.swift; sourceTree = "<group>"; };
 		9F6BE5032B7B5CAB00D4DA6A /* ExploreViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExploreViewController.swift; sourceTree = "<group>"; };
@@ -246,7 +246,7 @@
 				9FD7B3462B8372A50082E37C /* User.swift */,
 				9F9F17042B91D687004672F6 /* Notifications.swift */,
 				9F3544332BA45859005D341E /* SettingsSection.swift */,
-				9F3544352BA45870005D341E /* SettingsOption.swift */,
+				9F35443B2BA72FE6005D341E /* SettingsOption.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -552,7 +552,7 @@
 				9F35442C2BA34D2C005D341E /* EditProfileViewController.swift in Sources */,
 				9F706CFC2B909DAF002AE0B0 /* RecordButton.swift in Sources */,
 				9FED47682B8C9B640063A9C5 /* ExploreResponse.swift in Sources */,
-				9F3544362BA45870005D341E /* SettingsOption.swift in Sources */,
+				9F35443C2BA72FE7005D341E /* SettingsOption.swift in Sources */,
 				9FD7B3452B8372680082E37C /* PostComment.swift in Sources */,
 				9FED47782B8DFA030063A9C5 /* AuthButton.swift in Sources */,
 				9FED476E2B8C9C890063A9C5 /* Hashtag.swift in Sources */,

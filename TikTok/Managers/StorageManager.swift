@@ -92,4 +92,14 @@ final class StorageManager {
             }
         }
     }
+    
+    func getDownloadTest(for post: PostModel, completion: @escaping (Result<URL, Error>) -> Void) {
+        storageBucket.child(post.videoChildPath).downloadURL { url, error in
+            if let error = error {
+                completion(.failure(error))
+            } else if let url = url {
+                completion(.success(url))
+            }
+        }
+    }
 }
