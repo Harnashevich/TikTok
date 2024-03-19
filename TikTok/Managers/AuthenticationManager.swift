@@ -92,7 +92,7 @@ final class AuthManager {
     }
     
     /// Attempt to sign out
-    /// - Parameter completion: Async callback of sign out result
+    /// - Parameter completion: Async callback of sign out resultzzzzz
     public func signOut(completion: (Bool) -> Void) {
         do {
             try Auth.auth().signOut()
