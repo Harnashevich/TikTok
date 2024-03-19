@@ -38,6 +38,7 @@ class CaptionViewController: UIViewController {
         title = "Add Caption"
         view.backgroundColor = .systemBackground
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Post", style: .done, target: self, action: #selector(didTapPost))
+        navigationItem.rightBarButtonItem?.tintColor = .label
         view.addSubview(captionTextView)
     }
 

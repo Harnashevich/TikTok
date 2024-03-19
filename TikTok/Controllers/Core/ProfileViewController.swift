@@ -8,22 +8,22 @@
 import ProgressHUD
 import UIKit
 
-class ProfileViewController: UIViewController {
-    
+class ProfileViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+
     var isCurrentUserProfile: Bool {
         if let username = UserDefaults.standard.string(forKey: "username") {
             return user.username.lowercased() == username.lowercased()
         }
         return false
     }
-    
+
     enum PicturePickerType {
         case camera
         case photoLibrary
     }
-    
+
     var user: User
-    
+
     private let collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .vertical
@@ -31,25 +31,22 @@ class ProfileViewController: UIViewController {
         collection.backgroundColor = .systemBackground
         collection.showsVerticalScrollIndicator = false
         collection.alwaysBounceVertical = true
-        collection.register(UICollectionViewCell.self, forCellWithReuseIdentifier: "cell")
         collection.register(
             ProfileHeaderCollectionReusableView.self,
             forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
             withReuseIdentifier: ProfileHeaderCollectionReusableView.identifier
         )
-        collection.register(
-            PostCollectionViewCell.self,
-            forCellWithReuseIdentifier: PostCollectionViewCell.identifer
-        )
+        collection.register(PostCollectionViewCell.self,
+                            forCellWithReuseIdentifier: PostCollectionViewCell.identifer)
         return collection
     }()
-    
+
     private var posts = [PostModel]()
-    
+
     private var followers = [String]()
     private var following = [String]()
     private var isFollower: Bool = false
-    
+
     // MARK: - Init
 
     init(user: User) {
@@ -60,18 +57,17 @@ class ProfileViewController: UIViewController {
     required init?(coder: NSCoder) {
         fatalError()
     }
-    
+
     // MARK: - Lifecycle
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.addSubview(collectionView)
         title = user.username.uppercased()
         view.backgroundColor = .systemBackground
-        
+        view.addSubview(collectionView)
         collectionView.delegate = self
         collectionView.dataSource = self
-        
+
         let username = UserDefaults.standard.string(forKey: "username")?.uppercased() ?? "Me"
         if title == username {
             navigationItem.rightBarButtonItem = UIBarButtonItem(
@@ -83,12 +79,12 @@ class ProfileViewController: UIViewController {
         }
         fetchPosts()
     }
-    
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
-        collectionView.frame = view.bounds
+
+    @objc func didTapSettings() {
+        let vc = SettingsViewController()
+        navigationController?.pushViewController(vc, animated: true)
     }
-    
+
     func fetchPosts() {
         DatabaseManager.shared.getPosts(for: user) { [weak self] postModels in
             DispatchQueue.main.async {
@@ -97,19 +93,18 @@ class ProfileViewController: UIViewController {
             }
         }
     }
-    
-    @objc func didTapSettings() {
-        let vc = SettingsViewController()
-        navigationController?.pushViewController(vc, animated: true)
-    }
-}
 
-extension ProfileViewController: UICollectionViewDataSource {
-    
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        posts.count
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        collectionView.frame = view.bounds
     }
-    
+
+    // MARK: - CollectionView
+
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return posts.count
+    }
+
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let postModel = posts[indexPath.row]
         guard let cell = collectionView.dequeueReusableCell(
@@ -121,7 +116,31 @@ extension ProfileViewController: UICollectionViewDataSource {
         cell.configure(with: postModel)
         return cell
     }
-    
+
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        collectionView.deselectItem(at: indexPath, animated: true)
+        // Open post
+        HapticsManager.shared.vibrateForSelection()
+        let post = posts[indexPath.row]
+        let vc = PostViewController(model: post)
+        vc.delegate = self
+        vc.title = "Video"
+        navigationController?.pushViewController(vc, animated: true)
+    }
+
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        let width: CGFloat = (view.width - 12) / 3
+        return CGSize(width: width, height: width * 1.5)
+    }
+
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+        return 1
+    }
+
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
+        return 1
+    }
+
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
         guard kind == UICollectionView.elementKindSectionHeader,
               let header = collectionView.dequeueReusableSupplementaryView(
@@ -131,30 +150,27 @@ extension ProfileViewController: UICollectionViewDataSource {
               ) as? ProfileHeaderCollectionReusableView else {
             return UICollectionReusableView()
         }
-        
         header.delegate = self
-        
+
         let group = DispatchGroup()
         group.enter()
         group.enter()
         group.enter()
-        
+
         DatabaseManager.shared.getRelationships(for: user, type: .followers) { [weak self] followers in
-            guard let self else { return }
             defer {
                 group.leave()
             }
-            self.followers = followers
+            self?.followers = followers
         }
-        
+
         DatabaseManager.shared.getRelationships(for: user, type: .following) { [weak self] following in
-            guard let self else { return }
             defer {
                 group.leave()
             }
-            self.following = following
-        } 
-        
+            self?.following = following
+        }
+
         DatabaseManager.shared.isValidRelationship(
             for: user,
             type: .followers
@@ -164,7 +180,7 @@ extension ProfileViewController: UICollectionViewDataSource {
             }
             self?.isFollower = isFollower
         }
-        
+
         group.notify(queue: .main) {
             let viewModel = ProfileHeaderViewModel(
                 avatarImageURL: self.user.profilePictureURL,
@@ -174,33 +190,16 @@ extension ProfileViewController: UICollectionViewDataSource {
             )
             header.configure(with: viewModel)
         }
-        
+
         return header
     }
-}
 
-extension ProfileViewController: UICollectionViewDelegateFlowLayout  {
-    
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let width: CGFloat = (view.width - 12) / 3
-        return CGSize(width: width, height: width * 1.5)
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-        return 1
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
-        return 1
-    }
-    
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
         return CGSize(width: view.width, height: 300)
     }
 }
 
 extension ProfileViewController: ProfileHeaderCollectionReusableViewDelegate {
-    
     func profileHeaderCollectionReusableView(_ header: ProfileHeaderCollectionReusableView,
                                              didTapPrimaryButtonWith viewModel: ProfileHeaderViewModel) {
         HapticsManager.shared.vibrateForSelection()
@@ -238,7 +237,7 @@ extension ProfileViewController: ProfileHeaderCollectionReusableViewDelegate {
             }
         }
     }
-    
+
     func profileHeaderCollectionReusableView(_ header: ProfileHeaderCollectionReusableView,
                                              didTapFollowersWith viewModel: ProfileHeaderViewModel) {
         HapticsManager.shared.vibrateForSelection()
@@ -246,7 +245,7 @@ extension ProfileViewController: ProfileHeaderCollectionReusableViewDelegate {
         vc.users = followers
         navigationController?.pushViewController(vc, animated: true)
     }
-    
+
     func profileHeaderCollectionReusableView(_ header: ProfileHeaderCollectionReusableView,
                                              didTapFollowingButtonWith viewModel: ProfileHeaderViewModel) {
         HapticsManager.shared.vibrateForSelection()
@@ -254,9 +253,9 @@ extension ProfileViewController: ProfileHeaderCollectionReusableViewDelegate {
         vc.users = following
         navigationController?.pushViewController(vc, animated: true)
     }
-    
-    func profileHeaderCollectionReusableView(_ header: ProfileHeaderCollectionReusableView,
-                                             didTapAvatarFor viewModel: ProfileHeaderViewModel) {
+
+    func profileHeaderCollectionReusableView(_ header: ProfileHeaderCollectionReusableView, didTapAvatarFor
+                                                viewModel: ProfileHeaderViewModel) {
         guard isCurrentUserProfile else {
             return
         }
@@ -276,9 +275,8 @@ extension ProfileViewController: ProfileHeaderCollectionReusableViewDelegate {
         }))
 
         present(actionSheet, animated: true)
-        
     }
-    
+
     func presentProfilePicturePicker(type: PicturePickerType) {
         let picker = UIImagePickerController()
         picker.sourceType = type == .camera ? .camera : .photoLibrary
@@ -290,15 +288,15 @@ extension ProfileViewController: ProfileHeaderCollectionReusableViewDelegate {
 
 extension ProfileViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
-        picker.dismiss(animated: true)
+        picker.dismiss(animated: true, completion: nil)
     }
-    
+
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]) {
-        picker.dismiss(animated: true)
+        picker.dismiss(animated: true, completion: nil)
         guard let image = info[UIImagePickerController.InfoKey.editedImage] as? UIImage else {
             return
         }
-        
+
         ProgressHUD.animate("Uploading")
         StorageManager.shared.uploadProfilePicture(with: image) { [weak self] result in
             DispatchQueue.main.async {
@@ -314,7 +312,7 @@ extension ProfileViewController: UIImagePickerControllerDelegate, UINavigationCo
                         profilePictureURL: downloadURL,
                         identifier: strongSelf.user.username
                     )
-                    ProgressHUD.succeed("Updated!")
+                    ProgressHUD.success("Updated!")
                     strongSelf.collectionView.reloadData()
                 case .failure:
                     HapticsManager.shared.vibrate(for: .error)
@@ -322,20 +320,6 @@ extension ProfileViewController: UIImagePickerControllerDelegate, UINavigationCo
                 }
             }
         }
-    }
-}
-
-extension ProfileViewController: UICollectionViewDelegate {
-    
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        collectionView.deselectItem(at: indexPath, animated: true)
-        // Open post
-        HapticsManager.shared.vibrateForSelection()
-        let post = posts[indexPath.row]
-        let vc = PostViewController(model: post)
-        vc.delegate = self
-        vc.title = "Video"
-        navigationController?.pushViewController(vc, animated: true)
     }
 }
 
@@ -348,4 +332,5 @@ extension ProfileViewController: PostViewControllerDelegate {
         // Push another profile
     }
 }
+
 
