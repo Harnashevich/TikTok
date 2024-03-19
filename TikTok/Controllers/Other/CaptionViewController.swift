@@ -5,7 +5,6 @@
 //  Created by Andrei Harnashevich on 29.02.24.
 //
 
-import Appirater
 import ProgressHUD
 import UIKit
 
@@ -67,7 +66,6 @@ class CaptionViewController: UIViewController {
                     // Update database
                     DatabaseManager.shared.insertPost(fileName: newVideoName, caption: caption) { datebaseUpdated in
                         if datebaseUpdated {
-                            Appirater.tryToShowPrompt()
                             HapticsManager.shared.vibrate(for: .success)
                             ProgressHUD.dismiss()
                             // Reset camera and switch to feed
