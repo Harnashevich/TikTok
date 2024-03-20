@@ -1,1 +1,2 @@
-# TikTok app
+# TikTok
+Project is based on an iOS Academy course.
