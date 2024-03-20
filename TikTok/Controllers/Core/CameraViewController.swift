@@ -154,14 +154,16 @@ class CameraViewController: UIViewController {
 extension CameraViewController: AVCaptureFileOutputRecordingDelegate {
     func fileOutput(_ output: AVCaptureFileOutput, didFinishRecordingTo outputFileURL: URL, from connections: [AVCaptureConnection], error: Error?) {
         guard error == nil else {
-            let alert = UIAlertController(title: "Woops",
-                                          message: "Something went wrong when recording your video",
-                                          preferredStyle: .alert)
-            alert.addAction(UIAlertAction(title: "Dismiss", style: .cancel, handler: nil))
+            let alert = UIAlertController(
+                title: "Woops",
+                message: "Something went wrong when recording your video",
+                preferredStyle: .alert
+            )
+            alert.addAction(UIAlertAction(title: "Dismiss", style: .cancel))
             present(alert, animated: true)
             return
         }
-
+        
         recordedVideoURL = outputFileURL
 
         if UserDefaults.standard.bool(forKey: "save_video") {
