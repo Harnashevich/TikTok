@@ -1,6 +1,6 @@
 # TikTok
 
-Technology stack:
+Technology stack:<br />
 • UIKit (programmatically)<br />
 • MVVM architecture<br />
 • Firebase storage and authentication<br />
