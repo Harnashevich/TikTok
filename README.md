@@ -1,6 +1,6 @@
 # TikTok
 
-TikTik app on iOS with the ability to record, watch and save video.
+TikTik application on iOS with the ability to record, watch and save video.
 
 Technology stack:
 
