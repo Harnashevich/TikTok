@@ -1,4 +1,4 @@
-# TikTok
+# TikTok <img src="https://github.com/Harnashevich/TikTok/assets/84876109/284b46ae-0c17-4877-80a3-017011d1d0d1" width="30" height="30">
 
 TikTik application on iOS with the ability to record, watch and save video.
 
