@@ -12,6 +12,7 @@ The project is based on the iOS Academy course.
 • Saving video on Firebase<br />
 • Notifications screen with swipe to delete<br />
 • Profile screen with settings<br />
+• Sign In/Sign Out<br />
 
 ## Technology stack
 
