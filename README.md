@@ -3,6 +3,16 @@
 TikTik application on iOS with the ability to record, watch and save video.<br />
 The project is based on the iOS Academy course.
 
+## Features
+
+• Watch a video<br />
+• Double tap to like on video<br />
+• Explore screen<br />
+• Video recording<br />
+• Saving video on Firebase<br />
+• Notifications screen with swipe to delete<br />
+• Profile screen with settings<br />
+
 ## Technology stack
 
 • UIKit (programmatically)<br />
