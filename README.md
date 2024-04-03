@@ -3,7 +3,7 @@
 TikTik application on iOS with the ability to record, watch and save video.<br />
 The project is based on the iOS Academy course.
 
-# <span style="font-size:10.5em;">Technology stack</span>
+# <span style="font-size:5.0em;">Technology stack</span>
 
 • UIKit (programmatically)<br />
 • MVVM architecture<br />
